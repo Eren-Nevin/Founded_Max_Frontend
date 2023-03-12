@@ -22,9 +22,14 @@
 html,
 body {
     overflow-x: hidden;
+    font-size: 17px;
 }
 
 body {
     color: white;
     background-color: #121214!important;
+}
+
+.box {
+    background: linear-gradient(34deg, #121214, #1e1f21);
 }
