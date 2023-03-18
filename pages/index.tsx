@@ -20,6 +20,9 @@ export default function Home() {
         <div className='grid md:grid-cols-2 sm:grid-cols-2 gap-4'>
           {/* box */}
           <Box icon={<CalendarIcon className="h-5 mr-2  inline-block" />} title={' Minimum trading days '} expectation={['Minimum:','1 Day']} Result={['Current result:','0Day']} Percent={50} chartColor='red' />
+          <Box icon={<CalendarIcon className="h-5 mr-2  inline-block" />} title={' Minimum trading days '} expectation={['Minimum:','1 Day']} Result={['Current result:','0Day']} Percent={50} chartColor='red' />
+          <Box icon={<CalendarIcon className="h-5 mr-2  inline-block" />} title={' Minimum trading days '} expectation={['Minimum:','1 Day']} Result={['Current result:','0Day']} Percent={50} chartColor='red' />
+          <Box icon={<CalendarIcon className="h-5 mr-2  inline-block" />} title={' Minimum trading days '} expectation={['Minimum:','1 Day']} Result={['Current result:','0Day']} Percent={50} chartColor='red' />
         </div>
 
       </div>
