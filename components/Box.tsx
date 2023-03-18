@@ -35,11 +35,11 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
         <>
             <div className="mt-2 box py-3 px-3 rounded">
                 <div className="columns-2  col">
-                    <div className='text-[#30d5f1] font-bold'>
+                    <div className='text-[#00a8e8] font-bold'>
                         {icon}
                         <span>{title}</span>
                     </div>
-                    <span className='bg-[rgba(220,53,69,.12)]  text-[#dc3545] rounded px-2 float-right'> Passed </span>
+                    <span className='bg-[rgba(220,53,69,.12)]  text-[#ff006e] rounded px-2 float-right'> Passed </span>
                 </div>
                 <div className="float-right mt-8 relative left-5 -top-2">
                     <Chart options={config.options} series={[2]} type="radialBar" width="110" height="110" />
@@ -49,8 +49,8 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                     <p className="text-[#676d7d] float-right">{expectation[1]}</p>
                 </div>
                 <div className="columns-2 ">
-                    <p className="text-[#30d5f1]">{Result[0]}</p>
-                    <p className="text-[red] float-right">{Result[1]}</p>
+                    <p className="text-[#00a8e8]">{Result[0]}</p>
+                    <p className="text-[#ff206e] float-right">{Result[1]}</p>
                 </div>
 
             </div>
