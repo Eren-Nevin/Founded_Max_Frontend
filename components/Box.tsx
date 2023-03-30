@@ -5,7 +5,7 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 
 const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JSX.Element => {
-    console.log(expectation)
+    // console.log(expectation)
     const config: any = {
         options: {
             colors: [chartColor],
@@ -17,7 +17,6 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                             show: false,
                             label: 'TOTAL'
                         }
-
                     }
                 }
             },
@@ -28,9 +27,7 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                 }
             },
         },
-
-
-    }
+    }  
     return (
         <>
             <div className="mt-2 box py-3 px-3 rounded">
@@ -42,7 +39,12 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                     <span className='bg-[rgba(220,53,69,.12)]  text-[#ff006e] rounded px-2 float-right'> Passed </span>
                 </div>
                 <div className="float-right mt-8 relative left-5 -top-2">
-                    <Chart options={config.options} series={[2]} type="radialBar" width="110" height="110" />
+                    <Chart
+                        options={config.options}
+                        series={[2]} type="radialBar"
+                        width="110"
+                        height="110"
+                    />
                 </div>
                 <div className="columns-2 mt-10">
                     <p className="text-[#676d7d]">{expectation[0]}</p>
@@ -52,7 +54,6 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                     <p className="text-[#00a8e8]">{Result[0]}</p>
                     <p className="text-[#ff206e] float-right">{Result[1]}</p>
                 </div>
-
             </div>
         </>
     )
