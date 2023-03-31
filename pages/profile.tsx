@@ -1,6 +1,10 @@
 import Head from 'next/head'
 import Box from '@/components/Box'
-import { CalendarIcon } from '@heroicons/react/24/outline'
+import {
+    Adjust,
+    TrendingDown,
+    CalendarToday,
+  } from "@mui/icons-material"
 import axios from "axios"
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
@@ -86,7 +90,7 @@ export default function Boxes() {
                 <p className='text-gray-400 mb-5'>Goals Overview</p>
                 <div className='grid md:grid-cols-2 sm:grid-cols-2 gap-4'>
                     <Box
-                        icon={<CalendarIcon className="h-5 mr-2  inline-block" />}
+                        icon={<CalendarToday className="h-5 mr-2  inline-block" />}
                         title={' Minimum trading days '}
                         expectation={['Minimum:', minimumTradingDays.Minimum+' Day']}
                         Result={['Current result:', minimumTradingDays.CurrentResult+' Day']}
@@ -94,7 +98,7 @@ export default function Boxes() {
                         chartColor='red'
                     />
                     <Box
-                        icon={<CalendarIcon className="h-5 mr-2  inline-block" />}
+                        icon={<Adjust className="h-5 mr-2  inline-block" />}
                         title={' Profit Target '}
                         expectation={['Minimum: ',profitTarget.MinimumProfit]}
                         Result={['Current result: ',profitTarget.CurrentResult]}
@@ -102,7 +106,7 @@ export default function Boxes() {
                         chartColor='red'
                     />
                     <Box
-                        icon={<CalendarIcon className="h-5 mr-2  inline-block" />}
+                        icon={<TrendingDown className="h-5 mr-2  inline-block" />}
                         title={' Daily Loss '}
                         expectation={['Max. loss: ',dailyLoss.MaxDailyLoss]}
                         Result={['Max. loss recorded: ',dailyLoss.CurrentResult]}
@@ -110,7 +114,7 @@ export default function Boxes() {
                         chartColor='red'
                     />
                     <Box
-                        icon={<CalendarIcon className="h-5 mr-2  inline-block" />}
+                        icon={<TrendingDown className="h-5 mr-2  inline-block" />}
                         title={' Initial Deposit Loss '}
                         expectation={['Max. loss: ',initialDepositLoss.MaxLoss]}
                         Result={['Max. loss recorded: ',initialDepositLoss.CurrentResult]}
