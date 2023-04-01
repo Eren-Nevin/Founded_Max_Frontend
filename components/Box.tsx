@@ -16,7 +16,7 @@ import {
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 
-const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JSX.Element => {
+const Box = ({ icon, title, expectation, Result, Passed, Percent, chartColor }: any): JSX.Element => {
     // console.log(expectation)
     const config: any = {
         options: {
@@ -86,7 +86,7 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                     		px: 1
                     	}}
                     >
-                    	<Typography sx={{ color: '#ff006e', }}> Passed </Typography>
+                    	<Typography sx={{ color: '#ff006e', }}> {Passed} </Typography>
                     </Grid>
                 </Grid>
                 <Grid

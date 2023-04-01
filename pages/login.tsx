@@ -8,36 +8,6 @@ const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    //const router = useRouter()
-    //const [data, setData] = useState<AxiosResponse | null | void>()
-    // const uid = localStorage.getItem('uid');
-    // const preRegister = async () => {
-    //     try {
-    //       const response = await axios.post("http://135.125.202.125:3001/api/get_goals?login=233141", {
-    //       })
-    //       if (response.status === 200) {
-    //         localStorage.setItem('uid', response.data)
-    //       }
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    //   }
-    
-    // const handleClick = {
-    //     if (data: any) {
-    //         () => router.push('/profile')
-    //     }
-    // }
-    //const preRegister = async () => {
-    //    await axios.get("http://135.125.202.125:3001/api/get_goals?login=23231")
-    //    .then(res => {
-    //        setData(res)
-    //    })
-    //    .catch(err => {
-    //        console.log(err);
-    //    });
-    //}
-    
 
     return (
         <>
@@ -70,7 +40,7 @@ const Login = () => {
                                 type="password"
                                 placeholder="password" />
                         </div>
-                        <Link href="/profile">
+                        <Link href={`/profile?login=${username}`}>
                             <button
                                 className="btn border w-full rounded-lg py-1 bg-blue-300 text-black mt-5"
                             >
