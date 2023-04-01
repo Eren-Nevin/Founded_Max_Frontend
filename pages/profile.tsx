@@ -69,6 +69,11 @@ export default function Boxes() {
 
     useEffect(() => {
         let delay = setInterval(async () => { await getData(); }, 30000);
+        async function fetchData() {
+            await getData()
+        }
+        fetchData()
+
         return () =>  clearInterval(delay);
     }, []);
     
