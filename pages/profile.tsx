@@ -86,9 +86,9 @@ export default function Boxes() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="container   mx-auto  mt-32  bg-[#1e1f21]  px-10 py-5">
+            <div className="   mx-auto  mt-32  bg-[#1e1f21]  px-10 py-5">
                 <p className='text-gray-400 mb-5'>Goals Overview</p>
-                <div className='grid md:grid-cols-2 sm:grid-cols-2 gap-4'>
+                <div>
                     <Box
                         icon={<CalendarToday className="h-5 mr-2  inline-block" />}
                         title={' Minimum trading days '}
