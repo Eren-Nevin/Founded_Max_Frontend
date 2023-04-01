@@ -2,14 +2,14 @@ import { useState } from "react"
 import Head from 'next/head'
 import Link from 'next/link'
 import axios, { AxiosResponse } from "axios"
-import { useRouter } from 'next/router'
+//import { useRouter } from 'next/router'
 
 const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const router = useRouter()
-    const [data, setData] = useState<AxiosResponse | null | void>()
+    //const router = useRouter()
+    //const [data, setData] = useState<AxiosResponse | null | void>()
     // const uid = localStorage.getItem('uid');
     // const preRegister = async () => {
     //     try {
@@ -28,15 +28,15 @@ const Login = () => {
     //         () => router.push('/profile')
     //     }
     // }
-    const preRegister = async () => {
-        await axios.get("http://135.125.202.125:3001/api/get_goals?login=23231")
-        .then(res => {
-            setData(res)
-        })
-        .catch(err => {
-            console.log(err);
-        });
-    }
+    //const preRegister = async () => {
+    //    await axios.get("http://135.125.202.125:3001/api/get_goals?login=23231")
+    //    .then(res => {
+    //        setData(res)
+    //    })
+    //    .catch(err => {
+    //        console.log(err);
+    //    });
+    //}
     
 
     return (
@@ -77,14 +77,14 @@ const Login = () => {
                                 Login
                             </button>
                         </Link>
-                        {/* <Link href="/"> */}
+                        <Link href="/">
                             <button
                                 className="btn border w-full rounded-lg py-1 bg-blue-300 text-black mt-5"
-                                onClick={() => {data && router.push('/profile')}}
+                                //onClick={() => {data && router.push('/profile')}}
                             >
                                 back
                             </button>
-                        {/* </Link> */}
+                        </Link>
                     </form>
                 </div>
             </div>

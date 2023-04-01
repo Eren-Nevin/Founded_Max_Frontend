@@ -44,17 +44,27 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
     return (
         <>
             <Grid
-                
+                container
                 item
                 display='inline-flex'
                 direction="column"
-                sx={{ bgcolor: '#1e1f21', borderRadius: 2, my:2, mx:1, py:3, px:3, width: '350px' }}
+                sx={{ 
+                	bgcolor: '#1e1f21',
+                	borderRadius: 2,
+                	my:2,
+                	mx:1,
+                	py:3,
+                	px:3,
+                	width: '350px'
+                }}
                 //xs={6}
             >
                 <Grid
                     container
                     direction="row"
-                    sx={{ flexWrap: "wrap" }}
+                    sx={{
+                    	flexWrap: "wrap"
+                    }}
                 >
                     <Grid
                         container
@@ -67,9 +77,14 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                         <Typography>{title}</Typography>
                     </Grid>
                     <Grid
-                    	itrm
+                    	item
                     	xs={3}
-                    	sx={{ float:' right', bgcolor: 'rgb(220 53 69 / 12%)', borderRadius: 2, px: 1 }}
+                    	sx={{
+                    		float:' right',
+                    		bgcolor: 'rgb(220 53 69 / 12%)',
+                    		borderRadius: 2,
+                    		px: 1
+                    	}}
                     >
                     	<Typography sx={{ color: '#ff006e', }}> Passed </Typography>
                     </Grid>
