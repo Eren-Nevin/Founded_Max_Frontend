@@ -29,13 +29,13 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                             show: false,
                             label: 'TOTAL'
                         }
-                    }
+                    },
                 }
             },
             fill: {
                 type: "gradient",
                 gradient: {
-                    gradientToColors: ["red"],
+                    gradientToColors: ["blue"],
                 }
             },
         },
@@ -129,7 +129,7 @@ const Box = ({ icon, title, expectation, Result, Percent, chartColor }: any): JS
                     >
                         <Chart
                             options={config.options}
-                            series={[2]} type="radialBar"
+                            series={[Percent]} type="radialBar"
                             width="110"
                             height="110"
                         />

@@ -14,30 +14,25 @@ import { useRouter } from 'next/router'
 
 export default function Boxes() {
 
-    // const { user, loading } = useUser()
-    // const router = useRouter()
-  
-    // useEffect(() => {
-    //   if (!(user || loading)) {
-        // router.push('/login')
-    //   }
-    // }, [user, loading])
-  
     const [minimumTradingDays, setMinimumTradingDays] = useState({
         Minimum:'',
         CurrentResult:'',
+        Reached:false,
     })
     const [profitTarget, setProfitTarget] = useState({
         MinimumProfit:'',
         CurrentResult:'',
+        Reached:false,
     })
     const [dailyLoss, setDailyLoss] = useState({
         MaxDailyLoss:'',
         CurrentResult:'',
+        Reached:false,
     })
     const [initialDepositLoss, setInitialDepositLoss] = useState({
         MaxLoss:'',
         CurrentResult:'',
+        Reached:false,
     })
 
     const getData = async () => {
@@ -47,19 +42,23 @@ export default function Boxes() {
             console.log("res\n", res);
             setMinimumTradingDays({
                 Minimum:goalsApi['Minimum Trading Days'].Minimum,
-                CurrentResult:goalsApi['Minimum Trading Days']['Current Result']
+                CurrentResult:goalsApi['Minimum Trading Days']['Current Result'],
+                Reached:goalsApi['Minimum Trading Days']['Reached']
             });
             setProfitTarget({
                 MinimumProfit:goalsApi['Profit Target']['Minimum Profit'],
-                CurrentResult:goalsApi['Profit Target']['Current Result']
+                CurrentResult:goalsApi['Profit Target']['Current Result'],
+                Reached:goalsApi['Profit Target']['Reached']
             });
             setDailyLoss({
                 MaxDailyLoss:goalsApi['Daily Loss']['Max Loss'],
-                CurrentResult:goalsApi['Daily Loss']['Current Result']
+                CurrentResult:goalsApi['Daily Loss']['Current Result'],
+                Reached:goalsApi['Daily Loss']['Reached']
             });
             setInitialDepositLoss({
                 MaxLoss:goalsApi['Initial Deposit Loss']['Max Loss'],
-                CurrentResult:goalsApi['Initial Deposit Loss']['Current Result']
+                CurrentResult:goalsApi['Initial Deposit Loss']['Current Result'],
+                Reached:goalsApi['Initial Deposit Loss']['Reached']
             });
         })
         .catch(err => {
@@ -99,32 +98,32 @@ export default function Boxes() {
                         title={' Minimum trading days '}
                         expectation={['Minimum:', minimumTradingDays.Minimum+' Day']}
                         Result={['Current result:', minimumTradingDays.CurrentResult+' Day']}
-                        Percent={50}
-                        chartColor='red'
+                        Percent={+minimumTradingDays.CurrentResult / +minimumTradingDays.Minimum * 100}
+                        chartColor='blue'
                     />
                     <Box
                         icon={<Adjust className="h-5 mr-2  inline-block" />}
                         title={' Profit Target '}
                         expectation={['Minimum: ',profitTarget.MinimumProfit]}
                         Result={['Current result: ',profitTarget.CurrentResult]}
-                        Percent={50}
-                        chartColor='red'
+                        Percent={+profitTarget.CurrentResult / +profitTarget.MinimumProfit * 100}
+                        chartColor='blue'
                     />
                     <Box
                         icon={<TrendingDown className="h-5 mr-2  inline-block" />}
                         title={' Daily Loss '}
                         expectation={['Max. loss: ',dailyLoss.MaxDailyLoss]}
                         Result={['Max. loss recorded: ',dailyLoss.CurrentResult]}
-                        Percent={50}
-                        chartColor='red'
+                        Percent={+dailyLoss.CurrentResult/ +dailyLoss.MaxDailyLoss * 100}
+                        chartColor='blue'
                     />
                     <Box
                         icon={<TrendingDown className="h-5 mr-2  inline-block" />}
                         title={' Initial Deposit Loss '}
                         expectation={['Max. loss: ',initialDepositLoss.MaxLoss]}
                         Result={['Max. loss recorded: ',initialDepositLoss.CurrentResult]}
-                        Percent={50}
-                        chartColor='red'
+                        Percent={+initialDepositLoss.CurrentResult/ +initialDepositLoss.MaxLoss * 100}
+                        chartColor='blue'
                     />
                 </div>
             </div>
