@@ -41,7 +41,7 @@ export default function Boxes() {
     })
 
     const getData = async () => {
-        await axios.get("http://135.125.202.125:3001/api/get_goals?login=23231")
+        await axios.get("https://dwb.software:3001/api/get_goals?login=23231")
         .then(res => {
             let goalsApi = res.data.goals;
             console.log("res\n", res);
@@ -68,7 +68,7 @@ export default function Boxes() {
     } 
 
     useEffect(() => {
-        let delay = setInterval(() => { getData(); }, 30000);
+        let delay = setInterval(async () => { await getData(); }, 30000);
         return () =>  clearInterval(delay);
     }, []);
     
