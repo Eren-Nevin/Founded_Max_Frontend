@@ -1,15 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Header from "@/components/header"
-import {
-    Grid,
-    Checkbox,
-    Button,
-    TextField,
-    Typography,
-    FormControlLabel,
-  } from "@mui/material"
-
+import { Grid, Button, Typography } from "@mui/material"
 
 export default function Home() {
 

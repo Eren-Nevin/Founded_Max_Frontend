@@ -1,6 +1,6 @@
 import { JsxElement } from "typescript"
 import dynamic from 'next/dynamic'
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
   
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -26,7 +26,9 @@ const Box = ({ icon, title, expectation, Result, Passed, Percent, chartColor }: 
                 }
             },
         },
-    }
+    };
+    const theme = useTheme();
+    const tablet = useMediaQuery(theme.breakpoints.down('lg'));
     
     return (
         <>
@@ -40,8 +42,11 @@ const Box = ({ icon, title, expectation, Result, Passed, Percent, chartColor }: 
                 }}
             >
                 <Grid
+                    display="flex"
+                    alignItems='flex-start'
+                    justifyContent='center'
                     container
-                    direction="row"
+                    direction={ tablet ? 'column' : 'row' }
                     sx={{ flexWrap: "wrap" }}
                 >
                     <Grid
@@ -59,7 +64,8 @@ const Box = ({ icon, title, expectation, Result, Passed, Percent, chartColor }: 
                     	item
                     	xs={3}
                     	sx={{
-                    		float:' right',
+                    		minWidth: '110px' ,
+                            float:' right',
                     		bgcolor: 'rgb(220 53 69 / 12%)',
                     		borderRadius: 2,
                     		px: 1,
@@ -71,35 +77,33 @@ const Box = ({ icon, title, expectation, Result, Passed, Percent, chartColor }: 
                 </Grid>
                 <Grid
                     container
-                    direction="row"
+                    direction={ tablet ? 'column' : 'row' }
                 >
                     <Grid
                         container
                         item
-                        direction="row"
-                        spacing={-2}
+                        direction="column"
                         xs={10}
                         sx={{ flexWrap: "wrap", mt: 2 }}
                     >
                         <Grid
                             container
                             item
-                            direction="column"
-                            alignItems="flex-start"
+                            direction="row"
+                            justifyContent="space-between"
                             xs={7}
                         >
                             <Typography sx={{ color: '#676d7d' }}>{expectation[0]}</Typography>
-                            <Typography sx={{ color: '#00a8e8' }}>{Result[0]}</Typography>
-                            
+                            <Typography sx={{ color: '#676d7d' }}>{expectation[1]}</Typography>
                         </Grid>
                         <Grid
                             container
                             item
-                            direction="column"
-                            alignItems="flex-end"
+                            direction="row"
+                            justifyContent="space-between"
                             xs={5}
                         >
-                            <Typography sx={{ color: '#676d7d' }}>{expectation[1]}</Typography>
+                            <Typography sx={{ color: '#00a8e8' }}>{Result[0]}</Typography>
                             <Typography sx={{ color: '#ff206e' }}>{Result[1]}</Typography>
                         </Grid>
                     </Grid>
@@ -121,30 +125,3 @@ const Box = ({ icon, title, expectation, Result, Passed, Percent, chartColor }: 
 }
 
 export default Box
-
-
-{/* <div className="mt-2 box py-3 px-3 rounded">
-    <div className="columns-2  col">
-        <div className='text-[#00a8e8] font-bold'>
-            {icon}
-            <span>{title}</span>
-        </div>
-        <span className='bg-[rgba(220,53,69,.12)]  text-[#ff006e] rounded px-2 float-right'> Passed </span>
-    </div>
-    <div className="float-right mt-8 relative left-5 -top-2">
-        <Chart
-            options={config.options}
-            series={[2]} type="radialBar"
-            width="110"
-            height="110"
-        />
-    </div>
-    <div className="columns-2 mt-10">
-        <p className="text-[#676d7d]">{expectation[0]}</p>
-        <p className="text-[#676d7d] float-right">{expectation[1]}</p>
-    </div>
-    <div className="columns-2 ">
-        <p className="text-[#00a8e8]">{Result[0]}</p>
-        <p className="text-[#ff206e] float-right">{Result[1]}</p>
-    </div>
-</div> */}

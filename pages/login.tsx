@@ -1,16 +1,14 @@
 import { useState } from "react"
 import Head from 'next/head'
 import Link from 'next/link'
-// import axios, { AxiosResponse } from "axios"
-//import { useRouter } from 'next/router'
 import {
     Grid,
-    Checkbox,
     Button,
+    Checkbox,
     TextField,
     Typography,
     FormControlLabel,
-  } from "@mui/material";
+} from "@mui/material";
 
 const Login = () => {
 
@@ -19,7 +17,7 @@ const Login = () => {
     const [checked, setChecked] = useState(true)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
-      };
+    };
 
     return (
         <>
