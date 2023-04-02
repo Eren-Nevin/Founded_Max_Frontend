@@ -22,11 +22,11 @@ const Login = () => {
     };
 
     const getToken = async () => {
-        await axios.post('https://dwb.software:3001/api/auth', {
-                headers: {
+        await axios.post('https://dwb.software:3001/auth', {
+                // data: {
                     "uid": "23231",
-                    "password": "gtgv324",
-                }
+                    "password": "h6yzkyfi",
+                // }
             }).then((res) => {
             	console.log("res\n", res)
             }).catch((err) => {
