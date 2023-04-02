@@ -1,5 +1,15 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import Header from "@/components/header"
+import {
+    Grid,
+    Checkbox,
+    Button,
+    TextField,
+    Typography,
+    FormControlLabel,
+  } from "@mui/material"
+
 
 export default function Home() {
 
@@ -12,18 +22,22 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="grid grid-cols-1">
-                <div className="text-center mb-5">
-                    <h1 className="h1">Access to Profile</h1>
-                </div>
-                <Link href="/login">
-                    <button
-                        className="btn border w-full rounded-lg py-1 bg-blue-300 text-black mt-5"
-                    >
-                        Login
-                    </button>
-                </Link>
-            </div>
+            <Header />
+
+            <Grid
+                container
+                direction="column"
+                display="flex"
+                alignItems='center'
+                justifyContent='center'
+                sx={{ my: 1 }}
+            >
+                <Typography variant="h3">Access to Profile</Typography>
+                <Button variant="contained" sx={{ my: 1, width: "15%" }}>
+                    <Link style={{ color: "white", textDecoration: 'none' }} href="/login">Login</Link>
+                </Button>
+            </Grid>
+
         </>
     )
 }

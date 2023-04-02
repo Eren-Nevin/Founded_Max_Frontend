@@ -1,13 +1,25 @@
 import { useState } from "react"
 import Head from 'next/head'
 import Link from 'next/link'
-import axios, { AxiosResponse } from "axios"
+// import axios, { AxiosResponse } from "axios"
 //import { useRouter } from 'next/router'
+import {
+    Grid,
+    Checkbox,
+    Button,
+    TextField,
+    Typography,
+    FormControlLabel,
+  } from "@mui/material";
 
 const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [checked, setChecked] = useState(true)
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setChecked(event.target.checked);
+      };
 
     return (
         <>
@@ -18,46 +30,94 @@ const Login = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="container mx-auto my-5">
-                <div className="grid grid-cols-1">
-                    <div className="text-center mb-5">
-                        <h1 className="h1">Login</h1>
-                    </div>
+            <Grid
+                display="flex"
+                alignItems='center'
+                justifyContent='center'
+                sx={{ py: 2.5 }}
+            >
+                <Grid
+                    container
+                    item
+                    direction="column"
+                    sx={{ bgcolor: "background.paper", px: 10, py: 5 }}
+                    xs='auto'
+                >
                     <form action="">
-                        <div>
-                            <input
-                                className="block py-2.5 w-full text-sm  bg-transparent border border-b rounded-lg px-2    "
+                        <Grid
+                            display="flex"
+                            alignItems='center'
+                            justifyContent='center'
+                            
+                        >
+                            <img src="/FundedMax Logo - standard version.png" alt="logo" width='75px'/>
+                        </Grid>
+                        <Grid
+                            container
+                            direction="column"
+                            sx={{ my: 1 }}
+                        >
+                            <Typography
+                                variant="h4"
+                                sx={{ color: "black", my: 1 }}
+                            >
+                                Login to the site
+                            </Typography>
+                            <TextField
+                                label="Username"
+                                variant="standard"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                type="text"
-                                placeholder="userName" />
-                        </div>
-                        <div>
-                            <input
-                                className="block mt-5 py-2.5 w-full text-sm  bg-transparent border border-b rounded-lg px-2    "
+                                sx={{ my: 1 }}
+                            />
+                            <TextField
+                                label="Password"
+                                variant="standard"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                type="password"
-                                placeholder="password" />
-                        </div>
-                        <Link href={`/profile?login=${username}`}>
-                            <button
-                                className="btn border w-full rounded-lg py-1 bg-blue-300 text-black mt-5"
-                            >
-                                Login
-                            </button>
-                        </Link>
-                        <Link href="/">
-                            <button
-                                className="btn border w-full rounded-lg py-1 bg-blue-300 text-black mt-5"
-                                //onClick={() => {data && router.push('/profile')}}
-                            >
-                                back
-                            </button>
-                        </Link>
+                                sx={{ my: 1 }}
+                            />
+                        </Grid>
+                        <Grid
+                            container
+                            direction="row"
+                            justifyContent="space-between"
+                        >
+                            <Grid>
+                                <FormControlLabel
+                                    label="Remember me"
+                                    sx={{ color: "gray" }}
+                                    control={<Checkbox checked={checked} onChange={handleChange} />}
+                                />
+                            </Grid>
+                            <Grid>
+                                <Button sx={{ color: "gray" }}>
+                                    Forgot your password?
+                                </Button>
+                            </Grid>
+                        </Grid>
+                        <Grid
+                            container
+                            direction="column"
+                            display="flex"
+                            alignItems='center'
+                            justifyContent='center'
+                            sx={{ my: 1 }}
+                        >
+                            <Button variant="contained" sx={{ my: 1, width: "50%" }}>
+                                <Link style={{ color: "white", textDecoration: 'none' }} href={`/profile?login=${username}`}>
+                                    Login to the site
+                                </Link>
+                            </Button>
+                            <Button sx={{ my: 1, width: "50%" }}>
+                                <Link style={{ color: "gray", textDecoration: 'none' }} href="/">
+                                    Back To The Site
+                                </Link>
+                            </Button>
+                        </Grid>
                     </form>
-                </div>
-            </div>
+                </Grid>
+            </Grid>
         </>
     )
 }
