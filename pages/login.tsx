@@ -1,25 +1,39 @@
+import axios from "axios";
 import { useState } from "react"
 import Head from 'next/head'
 import Link from 'next/link'
-// import axios, { AxiosResponse } from "axios"
-//import { useRouter } from 'next/router'
 import {
     Grid,
-    Checkbox,
     Button,
+    Checkbox,
     TextField,
     Typography,
     FormControlLabel,
-  } from "@mui/material";
+} from "@mui/material";
 
 const Login = () => {
 
-    const [username, setUsername] = useState('')
+    const [uid, setUid] = useState('')
     const [password, setPassword] = useState('')
+    
     const [checked, setChecked] = useState(true)
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
-      };
+    };
+
+    const getToken = async () => {
+        await axios.post('https://dwb.software:3001/api/auth', {
+                headers: {
+                    "uid": "23231",
+                    "password": "gtgv324",
+                }
+            }).then((res) => {
+            	console.log("res\n", res)
+            }).catch((err) => {
+            console.log(err);
+       		})
+    	}
+    
 
     return (
         <>
@@ -66,8 +80,8 @@ const Login = () => {
                             <TextField
                                 label="Username"
                                 variant="standard"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                value={uid}
+                                onChange={(e) => setUid(e.target.value)}
                                 sx={{ my: 1 }}
                             />
                             <TextField
@@ -91,7 +105,7 @@ const Login = () => {
                                 />
                             </Grid>
                             <Grid>
-                                <Button sx={{ color: "gray" }}>
+                                <Button onClick={getToken} sx={{ color: "gray" }}>
                                     Forgot your password?
                                 </Button>
                             </Grid>
@@ -105,7 +119,7 @@ const Login = () => {
                             sx={{ my: 1 }}
                         >
                             <Button variant="contained" sx={{ my: 1, width: "50%" }}>
-                                <Link style={{ color: "white", textDecoration: 'none' }} href={`/profile?login=${username}`}>
+                                <Link style={{ color: "white", textDecoration: 'none' }} href={`/profile?login=${uid}`}>
                                     Login to the site
                                 </Link>
                             </Button>
