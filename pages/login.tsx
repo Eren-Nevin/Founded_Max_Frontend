@@ -1,18 +1,25 @@
 import axios from "axios";
-import { useState, useEffect } from "react"
+import { useState, useEffect, forwardRef } from "react"
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
 import {
     Grid,
-    Dialog,
-    DialogTitle,
     Button,
+    Snackbar,
     Checkbox,
     TextField,
     Typography,
     FormControlLabel,
 } from "@mui/material";
+import MuiAlert, { AlertProps } from '@mui/material/Alert'
+
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+    ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Login = () => {
 
@@ -21,7 +28,13 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [errorAlert, setErrorAlert] = useState('')
 	const [open, setOpen] = useState(false)
-
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+    };
+    
     const getToken = async () => {
         await axios.post('https://dwb.software:3001/auth', {
             // data: {
@@ -135,14 +148,11 @@ const Login = () => {
                             >
                                 Login to the site
                             </Button>
-                            <Dialog
-        						open={open}
-        						onClose={() => {setOpen(false)}}
-        						aria-labelledby="alert-dialog-title"
-        						aria-describedby="alert-dialog-description"
-      					    >
-      					    	<DialogTitle id="alert-dialog-title" sx={{ bgcolor: "rgb(211, 47, 47)", color: 'white' }}>{errorAlert}</DialogTitle>
-      					    </Dialog>
+                            <Snackbar open={open} autoHideDuration={10000} onClose={handleClose}>
+                                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                                    {errorAlert}
+                                </Alert>
+                            </Snackbar>
                             <Button sx={{ my: 1, width: "50%" }}>
                                 <Link style={{ color: "gray", textDecoration: 'none' }} href="/">
                                     Back To The Site
