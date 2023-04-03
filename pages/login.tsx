@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
 import {
     Grid,
+    Dialog,
+    DialogTitle,
     Button,
     Checkbox,
     TextField,
@@ -13,28 +16,34 @@ import {
 
 const Login = () => {
 
-    const [uid, setUid] = useState('')
+    const router = useRouter()
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    
-    const [checked, setChecked] = useState(true)
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setChecked(event.target.checked);
-    };
+    const [errorAlert, setErrorAlert] = useState('')
+	const [open, setOpen] = useState(false)
 
     const getToken = async () => {
         await axios.post('https://dwb.software:3001/auth', {
-                // data: {
-                    "uid": "23231",
-                    "password": "h6yzkyfi",
-                // }
-            }).then((res) => {
-            	console.log("res\n", res)
-            }).catch((err) => {
-            console.log(err);
-       		})
-    	}
-    
-
+            // data: {
+                "uid": username, // 23231
+                "password": password, // h6yzkyfi
+            // }
+        }).then((res) => {
+            console.log("res\n", res)
+            if (res.status === 200) {
+                localStorage.setItem('access-token', res.data.access_token)
+            }
+        }).then(function (push) {
+            if (localStorage.getItem('access-token')) {
+          		router.push(`/profile?login=${username}`)
+        	}
+        }).catch((err) => {
+        console.log(err);
+        setOpen(true);
+        setErrorAlert('Username or Password was incorrect!')
+        })
+    }
+	
     return (
         <>
             <Head>
@@ -54,7 +63,7 @@ const Login = () => {
                     container
                     item
                     direction="column"
-                    sx={{ bgcolor: "background.paper", px: 10, py: 5 }}
+                    sx={{ bgcolor: "background.paper", px: 10, py: 5, minWidth: '600px' }}
                     xs='auto'
                 >
                     <form action="">
@@ -80,8 +89,8 @@ const Login = () => {
                             <TextField
                                 label="Username"
                                 variant="standard"
-                                value={uid}
-                                onChange={(e) => setUid(e.target.value)}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 sx={{ my: 1 }}
                             />
                             <TextField
@@ -92,7 +101,7 @@ const Login = () => {
                                 sx={{ my: 1 }}
                             />
                         </Grid>
-                        <Grid
+                        {/* <Grid
                             container
                             direction="row"
                             justifyContent="space-between"
@@ -101,15 +110,15 @@ const Login = () => {
                                 <FormControlLabel
                                     label="Remember me"
                                     sx={{ color: "gray" }}
-                                    control={<Checkbox checked={checked} onChange={handleChange} />}
+                                    control={<Checkbox checked={checked} onChange={(event: React.ChangeEvent<HTMLInputElement>) => {setChecked(event.target.checked)}} />}
                                 />
                             </Grid>
                             <Grid>
-                                <Button onClick={getToken} sx={{ color: "gray" }}>
+                                <Button sx={{ color: "gray" }}>
                                     Forgot your password?
                                 </Button>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                         <Grid
                             container
                             direction="column"
@@ -118,11 +127,22 @@ const Login = () => {
                             justifyContent='center'
                             sx={{ my: 1 }}
                         >
-                            <Button variant="contained" sx={{ my: 1, width: "50%" }}>
-                                <Link style={{ color: "white", textDecoration: 'none' }} href={`/profile?login=${uid}`}>
-                                    Login to the site
-                                </Link>
+                            <Button
+                                variant="contained"
+                                disabled={!username || !password}
+                                onClick={getToken}
+                                sx={{ my: 1, width: "50%" }}
+                            >
+                                Login to the site
                             </Button>
+                            <Dialog
+        						open={open}
+        						onClose={() => {setOpen(false)}}
+        						aria-labelledby="alert-dialog-title"
+        						aria-describedby="alert-dialog-description"
+      					    >
+      					    	<DialogTitle id="alert-dialog-title" sx={{ bgcolor: "rgb(211, 47, 47)", color: 'white' }}>{errorAlert}</DialogTitle>
+      					    </Dialog>
                             <Button sx={{ my: 1, width: "50%" }}>
                                 <Link style={{ color: "gray", textDecoration: 'none' }} href="/">
                                     Back To The Site

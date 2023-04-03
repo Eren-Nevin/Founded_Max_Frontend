@@ -1,21 +1,18 @@
 import axios from "axios";
 import Head from "next/head";
+import { useRouter } from 'next/router';
 import Box from "@/components/Box";
 import Header from "@/components/header";
 import { useState, useEffect } from "react";
 import { Adjust, TrendingDown, CalendarToday } from "@mui/icons-material";
-import { Grid, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Grid, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 export default function Boxes() {
 
-    const theme = useTheme();
+    const router = useRouter()
+    const theme = useTheme()
     const tablet = useMediaQuery(theme.breakpoints.down('md'))
-
-    const [user, setUser] = useState({
-        uid: "",
-        // password: "",
-    });
-
+    
     const [minimumTradingDays, setMinimumTradingDays] = useState({
         Minimum: "",
         CurrentResult: "",
@@ -72,8 +69,7 @@ export default function Boxes() {
     useEffect(() => {
         let login = getLoginFromURL()
         if (login != null) {
-            // console.log(login);
-            setUser({ uid: login });
+            localStorage.getItem('access-token')
         }
         let delay = setInterval(async () => {
             await getData();
@@ -177,6 +173,12 @@ export default function Boxes() {
                             />
                         </Grid>
                     </Grid>
+                	<Button
+                        onClick={() => {localStorage.removeItem('access-token'); router.push('/')}}
+                        sx={{ my: 1, ml: 2, width: '20%' }}
+                    >
+                        Logout
+                	</Button>                    
                 </Grid>
             </Grid>
         </>
