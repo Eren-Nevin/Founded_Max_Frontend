@@ -36,7 +36,7 @@ const Login = () => {
     };
     
     const getToken = async () => {
-        await axios.post('https://dwb.software:3001/auth', {
+        await axios.post('https://dinkedpawn.com:3001/auth', {
             // data: {
                 "uid": username, // 23231
                 "password": password, // h6yzkyfi

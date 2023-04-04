@@ -43,7 +43,7 @@ export default function Boxes() {
     let token = localStorage.getItem("access-token");
     await axios
       .get(
-        `https://dwb.software:3001/api/get_goals?login=${getLoginFromURL()}`,
+        `https://dinkedpawn.com:3001/api/get_goals?login=${getLoginFromURL()}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`,
