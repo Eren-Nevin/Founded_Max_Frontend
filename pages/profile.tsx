@@ -44,7 +44,7 @@ export default function Boxes() {
         console.log(`TOKEN IS ${token}`)
         try {
         const rawRes = await fetch(
-            `http://fundedmax.org:5001/api/v1/User/GetUserStatus`,
+            `https://fundedmax.org:5001/api/v1/User/GetUserStatus`,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`,

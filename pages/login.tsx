@@ -37,7 +37,7 @@ const Login = () => {
 
     const getToken = async () => {
         try {
-            const url = `http://fundedmax.org:5001/api/v1/Authentication/Login?login=${username}&password=${password}`
+            const url = `https://fundedmax.org:5001/api/v1/Authentication/Login?login=${username}&password=${password}`
             const rawRes = await fetch(url)
             console.log(rawRes)
             if (rawRes.status === 200) {
