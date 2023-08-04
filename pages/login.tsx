@@ -17,7 +17,7 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert'
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref,
-    ) {
+) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
@@ -27,36 +27,48 @@ const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [errorAlert, setErrorAlert] = useState('')
-	const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false)
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
         setOpen(false);
     };
-    
+
     const getToken = async () => {
-        await axios.post('https://fundedmax.org:3001/auth', {
-            // data: {
-                "uid": username, // 23231
-                "password": password, // h6yzkyfi
-            // }
-        }).then((res) => {
-            console.log("res\n", res)
-            if (res.status === 200) {
-                localStorage.setItem('access-token', res.data.access_token)
+        try {
+            const url = `http://fundedmax.org:5001/api/v1/Authentication/Login?login=${username}&password=${password}`
+            const rawRes = await fetch(url)
+            console.log(rawRes)
+            if (rawRes.status === 200) {
+                const res = await rawRes.json()
+                console.log(res)
+                localStorage.setItem('access-token', res.data)
+                if (localStorage.getItem('access-token')) {
+                    router.push(`/profile?login=${username}`)
+                }
             }
-        }).then(function (push) {
-            if (localStorage.getItem('access-token')) {
-          		router.push(`/profile?login=${username}`)
-        	}
-        }).catch((err) => {
-        console.log(err);
-        setOpen(true);
-        setErrorAlert('Username or Password was incorrect!')
-        })
+        } catch (err) {
+            console.error(err)
+            setOpen(true);
+            setErrorAlert('Username or Password was incorrect!')
+        }
+        // await axios.get('http://fundedmax.org:5001/api/v1/Authentication/Login').then((res) => {
+        //     console.log("res\n", res)
+        //     if (res.status === 200) {
+        //         localStorage.setItem('access-token', res.data)
+        //     }
+        // }).then(function(push) {
+        //     if (localStorage.getItem('access-token')) {
+        //         router.push(`/profile?login=${username}`)
+        //     }
+        // }).catch((err) => {
+        //     console.log(err);
+        //     setOpen(true);
+        //     setErrorAlert('Username or Password was incorrect!')
+        // })
     }
-	
+
     return (
         <>
             <Head>
@@ -84,9 +96,9 @@ const Login = () => {
                             display="flex"
                             alignItems='center'
                             justifyContent='center'
-                            
+
                         >
-                            <img src="/FundedMax Logo - standard version.png" alt="logo" width='75px'/>
+                            <img src="/FundedMax Logo - standard version.png" alt="logo" width='75px' />
                         </Grid>
                         <Grid
                             container
