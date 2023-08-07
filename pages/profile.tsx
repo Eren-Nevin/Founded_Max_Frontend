@@ -13,6 +13,16 @@ import {
     useTheme,
 } from "@mui/material";
 
+function limitPointDigits(floatNumber: string, digits: number): string {
+    if (floatNumber.includes('.')) {
+        let [left, right] = floatNumber.split('.');
+        if (right.length > digits) {
+            return left + '.' + right.slice(0, digits);
+        }
+    }
+    return floatNumber;
+}
+
 export default function Boxes() {
     const router = useRouter();
     const theme = useTheme();
@@ -43,39 +53,39 @@ export default function Boxes() {
         let token = localStorage.getItem("access-token");
         console.log(`TOKEN IS ${token}`)
         try {
-        const rawRes = await fetch(
-            `https://fundedmax.org:5001/api/v1/User/GetUserStatus`,
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            }
-        )
+            const rawRes = await fetch(
+                `https://fundedmax.org:5001/api/v1/User/GetUserStatus`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    },
+                }
+            )
 
-        if (rawRes.status === 200) {
-            const res = await rawRes.json();
-            const goalsApi = res.data;
-            setMinimumTradingDays({
-                Minimum: goalsApi["Minimum Trading Days"].Minimum,
-                CurrentResult: goalsApi["Minimum Trading Days"]["Current Result"],
-                Reached: goalsApi["Minimum Trading Days"]["Reached"],
-            });
-            setProfitTarget({
-                MinimumProfit: goalsApi["Profit Target"]["Minimum Profit"],
-                CurrentResult: goalsApi["Profit Target"]["Current Result"],
-                Reached: goalsApi["Profit Target"]["Reached"],
-            });
-            setDailyLoss({
-                MaxDailyLoss: goalsApi["Daily Loss"]["Max Loss"],
-                CurrentResult: goalsApi["Daily Loss"]["Current Result"],
-                Reached: goalsApi["Daily Loss"]["Reached"],
-            });
-            setInitialDepositLoss({
-                MaxLoss: goalsApi["Initial Deposit Loss"]["Max Loss"],
-                CurrentResult: goalsApi["Initial Deposit Loss"]["Current Result"],
-                Reached: goalsApi["Initial Deposit Loss"]["Reached"],
-            });
-        }
+            if (rawRes.status === 200) {
+                const res = await rawRes.json();
+                const goalsApi = res.data;
+                setMinimumTradingDays({
+                    Minimum: goalsApi["Minimum Trading Days"].Minimum,
+                    CurrentResult: goalsApi["Minimum Trading Days"]["Current Result"],
+                    Reached: goalsApi["Minimum Trading Days"]["Reached"],
+                });
+                setProfitTarget({
+                    MinimumProfit: goalsApi["Profit Target"]["Minimum Profit"],
+                    CurrentResult: goalsApi["Profit Target"]["Current Result"],
+                    Reached: goalsApi["Profit Target"]["Reached"],
+                });
+                setDailyLoss({
+                    MaxDailyLoss: goalsApi["Daily Loss"]["Max Loss"],
+                    CurrentResult: goalsApi["Daily Loss"]["Current Result"],
+                    Reached: goalsApi["Daily Loss"]["Reached"],
+                });
+                setInitialDepositLoss({
+                    MaxLoss: goalsApi["Initial Deposit Loss"]["Max Loss"],
+                    CurrentResult: goalsApi["Initial Deposit Loss"]["Current Result"],
+                    Reached: goalsApi["Initial Deposit Loss"]["Reached"],
+                });
+            }
         } catch (err) {
             console.error(err)
         }
@@ -165,8 +175,8 @@ export default function Boxes() {
                             <Box
                                 icon={<Adjust />}
                                 title={"Profit Target"}
-                                expectation={["Minimum: ", profitTarget.MinimumProfit]}
-                                Result={["Current result: ", profitTarget.CurrentResult]}
+                                expectation={["Minimum: ", limitPointDigits(profitTarget.MinimumProfit, 2)]}
+                                Result={["Current result: ", limitPointDigits(profitTarget.CurrentResult, 2)]}
                                 Percent={Math.max(
                                     (+profitTarget.CurrentResult / +profitTarget.MinimumProfit) *
                                     100,
@@ -186,8 +196,8 @@ export default function Boxes() {
                             <Box
                                 icon={<TrendingDown />}
                                 title={"Daily Loss"}
-                                expectation={["Max. loss: ", dailyLoss.MaxDailyLoss]}
-                                Result={["Max. loss recorded: ", dailyLoss.CurrentResult]}
+                                expectation={["Max. loss: ", limitPointDigits(dailyLoss.MaxDailyLoss, 2)]}
+                                Result={["Max. loss recorded: ", limitPointDigits(dailyLoss.CurrentResult, 2)]}
                                 Percent={Math.max(
                                     (+dailyLoss.CurrentResult / +dailyLoss.MaxDailyLoss) * 100,
                                     0
@@ -206,10 +216,10 @@ export default function Boxes() {
                             <Box
                                 icon={<TrendingDown />}
                                 title={"Initial Deposit Loss"}
-                                expectation={["Max. loss: ", initialDepositLoss.MaxLoss]}
+                                expectation={["Max. loss: ", limitPointDigits(initialDepositLoss.MaxLoss, 2)]}
                                 Result={[
                                     "Max. loss recorded: ",
-                                    initialDepositLoss.CurrentResult,
+                                    limitPointDigits(initialDepositLoss.CurrentResult, 2),
                                 ]}
                                 Percent={Math.max(
                                     (+initialDepositLoss.CurrentResult /
